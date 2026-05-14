@@ -1,4 +1,4 @@
-# 🚔 Brooklyn Nine-Nine — TryHackMe Writeup
+# 🚔 Brooklyn Nine-Nine - TryHackMe Writeup
 
 > **Platform:** TryHackMe  
 > **Difficulty:** Easy  
@@ -8,11 +8,11 @@
 
 ## 📌 Overview
 
-This room is aimed for beginner level hackers Tand the goal is to gain initial access through an open FTP server, brute-force SSH credentials, and then escalate privileges to root using a `sudo` misconfiguration.
+This room is aimed for beginner level hackers and the goal is to gain initial access through an open FTP server, brute-force SSH credentials, and then escalate privileges to root using a `sudo` misconfiguration.
 
 ---
 
-## 🔍 Step 1 — Host Discovery (Ping Scan)
+## 🔍 Step 1 - Host Discovery (Ping Scan)
 
 First, confirm the target machine is alive by sending ICMP packets with `ping`.
 
@@ -36,7 +36,7 @@ The machine responds successfully — 5 packets sent, 5 received, **0% packet lo
 
 ---
 
-## 🗺️ Step 2 — Port & Service Enumeration (Nmap)
+## 🗺️ Step 2 - Port & Service Enumeration (Nmap)
 
 Run an aggressive full-port scan with Nmap to discover open services, versions, and OS details.
 
@@ -58,7 +58,7 @@ PORT   STATE SERVICE VERSION
 ```
 
 
-## 📂 Step 3 — FTP Anonymous Login & File Retrieval
+## 📂 Step 3 - FTP Anonymous Login & File Retrieval
 
 Log in to the FTP server anonymously and no password needed.
 
@@ -88,7 +88,7 @@ ftp> exit
 > *From Amy: Jake please change your password. It is too weak and holt will be mad if someone hacks into the nine nine*
 ---
 
-## 🔓 Step 4 — SSH Brute-Force with Hydra
+## 🔓 Step 4 - SSH Brute-Force with Hydra
 
 Using the username `jake` from the note, use hydra brute-force to get his ssh password with  `rockyou.txt` wordlist.
 
@@ -108,7 +108,7 @@ Hydra (https://github.com/vanhauser-thc/thc-hydra) finished at 2026-05-14 05:54:
 
 ---
 
-## 🚪 Step 5 — SSH Login & User Flag
+## 🚪 Step 5 - SSH Login & User Flag
 
 Log in via SSH with the cracked credentials and navigate to find the user and root flag.
 
@@ -134,7 +134,7 @@ ee11cbb19052e40b07aac0ca060c23ee
 
 ---
 
-## ⚡ Step 6 — Privilege Escalation (sudo + less)
+## ⚡ Step 6 - Privilege Escalation (sudo less)
 
 ```bash
 jake@brookly_nine_nine:/home/holt$ sudo -l
