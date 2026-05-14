@@ -8,7 +8,7 @@
 
 ## 📌 Overview
 
-This room is themed around the Brooklyn Nine-Nine TV show. The goal is to gain initial access through an open FTP server, brute-force SSH credentials, and then escalate privileges to root using a `sudo` misconfiguration.
+This room is aimed for beginner level hackers Tand the goal is to gain initial access through an open FTP server, brute-force SSH credentials, and then escalate privileges to root using a `sudo` misconfiguration.
 
 ---
 
@@ -60,7 +60,7 @@ PORT   STATE SERVICE VERSION
 
 ## 📂 Step 3 — FTP Anonymous Login & File Retrieval
 
-Log in to the FTP server anonymously (no password required) and download the note.
+Log in to the FTP server anonymously and no password needed.
 
 ```bash
 ┌──(aashiq㉿kali)-[~/Downloads]
@@ -90,7 +90,7 @@ ftp> exit
 
 ## 🔓 Step 4 — SSH Brute-Force with Hydra
 
-Using the username `jake` from the note, brute-force his SSH password with Hydra and the `rockyou.txt` wordlist.
+Using the username `jake` from the note, use hydra brute-force to get his ssh password with  `rockyou.txt` wordlist.
 
 ```bash
 ┌──(aashiq㉿kali)-[~/Downloads]
@@ -110,7 +110,7 @@ Hydra (https://github.com/vanhauser-thc/thc-hydra) finished at 2026-05-14 05:54:
 
 ## 🚪 Step 5 — SSH Login & User Flag
 
-Log in via SSH with the cracked credentials and navigate to find the user flag.
+Log in via SSH with the cracked credentials and navigate to find the user and root flag.
 
 ```bash
 ┌──(aashiq㉿kali)-[~/Downloads]
